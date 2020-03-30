@@ -1,7 +1,8 @@
 import os
 import numpy as np
+import re
 
-file =open("/Users/luxiaoyan/Gaitdemo/result/result_bg.txt")
+file =open("./result/GEI_result_cl.txt")
 lines =file.readlines()
 
 mAP=[]
@@ -13,13 +14,31 @@ rank20 = []
 
 for line in lines:
 	if bool(line.find(":",0,len(line))):
-		if line.split(":")=="mAP":
+		a=line.split(":")[0]
+		if line.split(":")[0]=="mAP":
 			score=re.findall(r"\d+\.?\d",line)
-			print “11”
-			print score
-			mAP.append(score)
+			mAP.append(score[0])
 
-print mAP
+		elif line.split(":")[0]=="Rank-1  ":
+			score=re.findall(r"\d+\.?\d",line)
+			rank1.append(score[0])
 
+		elif line.split(":")[0]=="Rank-5  ":
+			score=re.findall(r"\d+\.?\d",line)
+			rank5.append(score[0])
+		elif line.split(":")[0]=="Rank-10 ":
+			score=re.findall(r"\d+\.?\d",line)
+			rank10.append(score[1])
+		elif line.split(":")[0]=="Rank-20 ":
+			score=re.findall(r"\d+\.?\d",line)
+			rank20.append(score[1])
+mAP=np.array(mAP).astype("float64").mean()
+rank1=np.array(rank1).astype("float64").mean()
+rank5=np.array(rank5).astype("float64").mean()
+rank10=np.array(rank10).astype("float64").mean()
+rank20 =np.array(rank20).astype("float64").mean()
+
+print ("mAP##############",mAP,"\n","rank1##############",rank1,"\n","rank5##############",rank5,"\n"
+	   "rank10##############",rank10,"\n","rank20##############",rank20)
 
 
