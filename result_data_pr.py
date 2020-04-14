@@ -1,12 +1,18 @@
 import os
 import numpy as np
 import re
+import argparse
 
-result_name="./331_v3/result_nm_v3.0.txt"
+parser = argparse.ArgumentParser(description="result data process")
+parser.add_argument("-sf","-result_filename",type=str)
+parser.add_argument("-pf","-process_filename",type=str)
 
-file =open(result_name,"r")
+args = parser.parse_args()
+
+
+file =open(args.sf,"r")
 lines =file.readlines()
-flie_p =open("process_result_v3.0.txt","a")
+flie_p =open(args.pf,"a")
 
 
 mAP=[]
@@ -40,7 +46,7 @@ rank5=np.array(rank5).astype("float64").mean()
 rank10=np.array(rank10).astype("float64").mean()
 rank20 =np.array(rank20).astype("float64").mean()
 
-reslut=result_name+"\n"+"mAP:"+str(mAP)+"\n"+"rank1:"+str(rank1)+"\n"+"rank5:"+str(rank20)+"\n"\
+reslut=args.sf+"\n"+"mAP:"+str(mAP)+"\n"+"rank1:"+str(rank1)+"\n"+"rank5:"+str(rank5)+"\n"\
 	+"rank10:"+str(rank10)+"\n"+"rank20:"+str(rank20)+"\n"
 flie_p.write(reslut)
 
