@@ -2,7 +2,7 @@ import os
 import numpy as np
 import re
 
-result_name="./331_v3/result_nm_v3.0.txt"
+result_name="./4.2_v4/result_cl_v3.0.txt"
 
 file =open(result_name,"r")
 lines =file.readlines()
