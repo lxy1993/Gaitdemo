@@ -3,9 +3,13 @@ import numpy as np
 import re
 import argparse
 
+<<<<<<< HEAD
+result_name="./4.2_v4/result_cl_v3.0.txt"
+=======
 parser = argparse.ArgumentParser(description="result data process")
 parser.add_argument("-sf","-result_filename",type=str)
 parser.add_argument("-pf","-process_filename",type=str)
+>>>>>>> e1fdcc8f4afa6134cf4fc1d093e8f605864c6f57
 
 args = parser.parse_args()
 
