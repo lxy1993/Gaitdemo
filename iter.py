@@ -19,13 +19,44 @@ def data_iter(dataset,batch_size):
 	return batches_sk
 
 train_loader =data_iter(dataset.train,batch_size)
-	for i ,(input ,label) in enumerate(train_loader):
+#####initialize the model######
+print("initialize the model #########")
+
+model =torch.nn.LSTM(batch_size,embed_size,hidden_size,n_layers=2,dropout=0.5)
+classifer = torch.nn.Linear(hidden_size,num_class)
+loss =torch.softmax(output,label)
+
+
+def train(model,dataset,optimizer,batch_size):
+	model.train()
+	total_loss =0
+
+
+
+import math
+import torch
+import random
+from torch import nn
+from torch.autograd import Variable
+import torch.nn.functional as F
+
+class LSTMGait(nn.module):
+	def __init__(self, batch_size，embed_size,hidden_size，num_class, n_layers=1 ,dropout=0.5):
+		super(LSTMGait,self).__init__()
+		self.batch_size = batch_size
+		self.embed_size = embed_size
+		self.hidden_size =hidden_size
+		self.num_class = num_class
+		self.lstm = nn.LSTM(input_size=self.embed_size, hidden_size=self.hidden_dim, num_layers=1, batch_first=True)
+		self.classfier = nn.linear(self.hidden_size, self.num_class)
+
+	def forward(self,input):
+		output,(h_n,c_n)=self.lstm(input)
 		
-		output =model(input)
-
-		
-
-
-
+		if not self.traning:
+			return output
+		else:
+			y=self.classfier(output)
+			return y, output
 
 
