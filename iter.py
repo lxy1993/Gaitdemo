@@ -41,14 +41,14 @@ from torch.autograd import Variable
 import torch.nn.functional as F
 
 class LSTMGait(nn.module):
-	def __init__(self, batch_size，embed_size,hidden_size，num_class, n_layers=1 ,dropout=0.5):
+	def __init__(self, batch_size,embed_size,hidden_size,num_class, n_layers=1 ,dropout=0.5):
 		super(LSTMGait,self).__init__()
 		self.batch_size = batch_size
 		self.embed_size = embed_size
 		self.hidden_size =hidden_size
 		self.num_class = num_class
 		self.lstm = nn.LSTM(input_size=self.embed_size, hidden_size=self.hidden_dim, num_layers=1, batch_first=True)
-		self.classfier = nn.linear(self.hidden_size, self.num_class)
+		self.classifier = nn.linear(self.hidden_size, self.num_class)
 
 	def forward(self,input):
 		output,(h_n,c_n)=self.lstm(input)
@@ -56,7 +56,7 @@ class LSTMGait(nn.module):
 		if not self.traning:
 			return output
 		else:
-			y=self.classfier(output)
+			y=self.classifier(output)
 			return y, output
 
 
